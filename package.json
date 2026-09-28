@@ -1,8 +1,8 @@
 {
-  "name": "cipher-mesh-x-privacy",
-  "version": "0.1.0",
+  "name": "cipher-mesh-x",
+  "version": "1.0.0",
   "private": true,
-  "description": "Privacy-first peer-to-peer encrypted chat and file sharing MVP.",
+  "description": "Direct encrypted peer-to-peer chat and file transfers.",
   "scripts": {
     "start": "node server.js"
   }
