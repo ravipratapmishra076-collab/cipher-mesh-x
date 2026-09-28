@@ -281,7 +281,7 @@
     }
     function base64(bytes){let value='';for(const byte of bytes)value+=String.fromCharCode(byte);return btoa(value);}
     function fromBase64(value){return Uint8Array.from(atob(value),character=>character.charCodeAt(0));}
-    function chunkIv(prefix,index){const iv=new Uint8Array(prefix);new DataView(iv.buffer).setUint32(8,index,false);return iv;}
+    function chunkIv(prefix,index){const iv=new Uint8Array(12);iv.set(prefix.subarray(0,8));new DataView(iv.buffer).setUint32(8,index,false);return iv;}
     function transferProgress(percent,label,speedText){
       const value=Math.max(0,Math.min(100,percent));$('#progressBar').style.width=`${value}%`;
       $('.progress-track').setAttribute('aria-valuenow',String(Math.round(value)));
