@@ -6,59 +6,241 @@
   <meta name="theme-color" content="#111215">
   <title>Cipher Mesh X — Private peer-to-peer communication</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
-    :root{--bg:#111215;--panel:#191a1f;--field:#15161a;--line:#303138;--soft:#929096;--text:#f1f0ec;--amber:#d0833d;--amber-lite:#f0ad64;--green:#78bd82;--red:#e08372}
-    *{box-sizing:border-box}body{margin:0;min-width:320px;background:radial-gradient(circle at 15% -10%,#26211d 0,transparent 30rem),var(--bg);color:var(--text);font:500 14px/1.45 Manrope,Arial,sans-serif}.shell{width:min(1460px,calc(100% - 40px));margin:0 auto;padding:26px 0 36px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-bottom:24px;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:.08em;font-size:13px}.brand-mark{display:grid;place-items:center;width:32px;height:32px;border:1px solid #ad6a32;border-radius:9px;color:var(--amber-lite);font-size:17px;box-shadow:inset 0 0 16px #d0833d20}.brand small{color:var(--soft);font:11px 'DM Mono',monospace;letter-spacing:0}.network{display:flex;align-items:center;gap:8px;color:#bebdb9;font:10px 'DM Mono',monospace}.network i,.online{width:8px;height:8px;border-radius:50%;background:#777;box-shadow:none}.network.connected i{background:var(--green);box-shadow:0 0 12px #78bd8299}.connect-peer,.action-button{border:1px solid #a86431;border-radius:9px;background:#24201d;color:#f2bd82;padding:9px 12px;font:700 11px Manrope,sans-serif;cursor:pointer;transition:.2s}.connect-peer:hover,.action-button:hover{background:#39271b;transform:translateY(-1px)}.connect-peer:disabled,.action-button:disabled{opacity:.48;cursor:not-allowed;transform:none}.title-row{padding:38px 0 28px;display:flex;align-items:end;justify-content:space-between;gap:25px}.title-row h1{margin:0;font:700 clamp(34px,5vw,61px)/1.05 'Playfair Display',Georgia,serif;letter-spacing:-.045em}.title-row p{max-width:445px;margin:0;color:#a4a29f;font-size:14px}.workspace{display:grid;grid-template-columns:290px minmax(350px,1fr) 340px;gap:18px;align-items:stretch}.card{background:linear-gradient(135deg,#1d1e23,#191a1f);border:1px solid var(--line);border-radius:20px;box-shadow:0 18px 50px #00000027}.card-header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:18px 18px 14px;border-bottom:1px solid #292a30}.card-header h2{margin:0;font-size:13px;letter-spacing:-.02em}.card-header>span{font:10px 'DM Mono',monospace;color:var(--soft)}.contacts{min-height:585px}.identity{margin:12px 12px 4px;padding:12px;border:1px solid #393a40;border-radius:12px;background:#15161a}.identity-label{display:flex;justify-content:space-between;color:var(--soft);font:9px 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.07em}.identity-key{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:7px;color:#efbd85;font:10px 'DM Mono',monospace}.identity-key code{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.copy-key{border:0;background:transparent;color:#d9934e;font:10px 'DM Mono',monospace;cursor:pointer}.contact-list{list-style:none;margin:0;padding:7px}.contact{display:flex;align-items:center;gap:11px;padding:11px;border-radius:13px;cursor:pointer;transition:.2s}.contact:hover,.contact.active{background:#28292f}.contact.active{box-shadow:inset 2px 0 var(--amber)}.avatar{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:50%;background:linear-gradient(145deg,#d99043,#f1b367);color:#342010;font-size:11px;font-weight:800}.person{min-width:0;flex:1}.person b{display:block;font-size:12px}.person small{display:block;overflow:hidden;color:var(--soft);font-size:10px;white-space:nowrap;text-overflow:ellipsis}.online{width:7px;height:7px;box-shadow:none}.online.connected{background:var(--green)}.empty-contacts{padding:15px 13px;color:#85837f;font-size:11px;line-height:1.6}.chat{min-height:585px;display:flex;flex-direction:column;overflow:hidden}.chat .card-header{padding:18px 22px}.chat-title{display:flex;align-items:center;gap:9px}.lock{color:var(--amber-lite);font-size:13px}.secure{color:#aaa;font:9px 'DM Mono',monospace}.secure.ready{color:var(--green)}.messages{display:flex;flex:1;flex-direction:column;gap:12px;padding:22px;min-height:365px;overflow:auto}.empty-chat{align-self:center;max-width:300px;margin:auto;text-align:center;color:#85837f;font-size:12px}.message{max-width:75%;padding:11px 13px;border-radius:11px;font-size:12px;overflow-wrap:anywhere}.message.in{align-self:flex-start;background:#292a31;color:#deddda;border-top-left-radius:3px}.message.out{align-self:flex-end;background:linear-gradient(135deg,#be6e31,#d1843e);color:#fff7eb;border-top-right-radius:3px;box-shadow:0 8px 19px #bd6d2c25}.message .stamp{display:block;margin-top:5px;opacity:.65;font:9px 'DM Mono',monospace}.composer{display:flex;gap:10px;padding:16px 18px;border-top:1px solid #292a30}.composer input{width:100%;border:1px solid #383940;border-radius:12px;outline:none;background:var(--field);color:var(--text);padding:12px 13px;font:12px Manrope,sans-serif}.composer input:focus{border-color:#b26d34}.composer input:disabled{opacity:.6}.send{border:0;border-radius:11px;background:var(--amber);color:#fff8ee;width:42px;cursor:pointer;font-size:16px;transition:.2s}.send:disabled{opacity:.45;cursor:not-allowed}.transfer{min-height:585px;overflow:hidden}.transfer-body{padding:20px}.file-icon{display:grid;place-items:center;width:92px;height:112px;margin:2px auto 14px;border:1px solid #3c3d45;border-radius:14px;background:linear-gradient(145deg,#292b32,#23242a);color:#f0ae65;font-size:19px;font-weight:800;box-shadow:inset 0 0 25px #00000022;overflow:hidden}.filename{text-align:center;font-size:13px;font-weight:800;overflow-wrap:anywhere}.file-meta{text-align:center;color:var(--soft);font:10px 'DM Mono',monospace;margin-top:4px}.progress-track{height:9px;margin:23px 0 8px;border-radius:99px;background:#292a31;overflow:hidden}.progress-bar{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#be702f,#e49b50);box-shadow:0 0 15px #d0833d66;transition:width .15s linear}.progress-label{display:flex;justify-content:space-between;gap:8px;color:#a7a49f;font:9px 'DM Mono',monospace}.progress-label span:last-child{text-align:right;white-space:nowrap}.peers{display:flex;justify-content:space-around;margin:30px 0 22px}.peer{text-align:center;color:#a7a49f;font:9px 'DM Mono',monospace}.peer .avatar{width:43px;height:43px;margin-bottom:6px;font-size:10px}.peer.active .avatar{outline:2px solid #d0833d;outline-offset:3px}.transfer-actions{display:flex;justify-content:center;margin-top:18px}.choose-file{width:100%;padding:11px 12px}.transfer-footer{min-height:47px;padding:14px 18px;border-top:1px solid #292a30;color:#a4a19c;font:9px 'DM Mono',monospace}.transfer-footer strong{color:var(--green);font-weight:500}.bottom{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:18px}.stat{padding:17px 18px}.stat-label{color:var(--soft);font:10px 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.08em}.stat b{display:block;margin-top:5px;font-size:18px;letter-spacing:-.04em}.stat b em{font:11px 'DM Mono',monospace;color:var(--green);font-style:normal;letter-spacing:0}.notice{position:fixed;bottom:22px;left:50%;z-index:12;transform:translate(-50%,120px);opacity:0;transition:.25s;background:#ece7dc;color:#2a211a;padding:10px 14px;border-radius:9px;box-shadow:0 9px 26px #0005;font-size:12px;font-weight:700;max-width:calc(100% - 28px);text-align:center}.notice.show{transform:translate(-50%,0);opacity:1}.modal-backdrop{position:fixed;inset:0;z-index:10;display:none;place-items:center;padding:18px;background:#050506b8;backdrop-filter:blur(5px)}.modal-backdrop.open{display:grid}.modal{width:min(100%,440px);padding:24px;border:1px solid #424149;border-radius:18px;background:#1c1d22;box-shadow:0 28px 80px #0009}.modal-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}.modal h2{margin:0;font-size:19px;letter-spacing:-.04em}.modal p{margin:7px 0 20px;color:#a7a49f;font-size:12px}.close-modal{border:0;background:transparent;color:#aaa;cursor:pointer;font-size:20px;line-height:1}.modal label{display:block;margin:14px 0 6px;color:#c5c1ba;font-size:11px;font-weight:700}.modal input{width:100%;border:1px solid #404149;border-radius:10px;outline:0;background:#121317;color:#f1f0ec;padding:12px;font:12px 'DM Mono',monospace}.modal input:focus{border-color:#cc7c3a}.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}.modal-actions button{border-radius:9px;padding:10px 13px;font:700 11px Manrope,sans-serif;cursor:pointer}.cancel{border:1px solid #45454b;background:transparent;color:#d8d5cf}.confirm{border:0;background:var(--amber);color:white}.help-line{margin-top:15px;color:#85837f;font-size:10px;line-height:1.55}.help-line b{color:#e7b17a}.key-error{min-height:16px;margin-top:7px;color:#ed9585;font-size:10px}a.save-file{display:inline-block;margin-top:8px;color:#23180f;background:#efad65;text-decoration:none;padding:8px 11px;border-radius:8px;font-weight:800;font-size:11px}
-    @media(max-width:1000px){.workspace{grid-template-columns:260px 1fr}.transfer{grid-column:1/-1;min-height:auto}.transfer-body{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:20px}.transfer-body .file-icon{margin:0 auto}.peers{margin:0}.bottom{grid-template-columns:repeat(3,1fr)}}
-    @media(max-width:700px){.shell{width:min(100% - 26px,550px);padding-top:16px}.topbar{padding-bottom:16px}.network{display:none}.title-row{display:block;padding:28px 0 20px}.title-row p{margin-top:12px}.workspace{grid-template-columns:1fr}.contacts,.chat{min-height:auto}.contacts{order:2}.chat{order:1}.transfer{order:3}.messages{min-height:350px}.bottom{grid-template-columns:1fr}.transfer-body{display:block}.transfer-body .file-icon{margin:2px auto 14px}.peers{margin:30px 0 22px}}
-  </style>
-  <style>
-    .invite-primary{background:linear-gradient(135deg,#c97837,#df9149);border:0;color:#fff8ee;padding:10px 15px}
-    .identity-connect{display:block;margin-top:10px;padding:3px 0;text-align:left}
-    .empty-contacts{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
-    .empty-chat{display:flex;flex-direction:column;align-items:center;gap:14px;padding:18px}
-    .empty-chat p{max-width:270px;margin:0}
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+    :root{color-scheme:dark;--bg:#101214;--panel:#17191c;--panel-raised:#1d2023;--field:#202327;--line:#2b2e32;--soft:#93999c;--text:#f2f3f3;--amber:#d0833d;--amber-lite:#f0ad64;--green:#78bd82;--red:#e08372}
+    *{box-sizing:border-box}
+    body{margin:0;min-width:320px;height:100dvh;overflow:hidden;background:radial-gradient(circle at 12% -15%,#282019 0,transparent 30rem),var(--bg);color:var(--text);font:500 14px/1.45 Manrope,Arial,sans-serif}
+    button,input{font:inherit}
+    button{color:inherit}
+    .shell{width:min(1500px,100%);height:100dvh;min-height:0;margin:0 auto;padding:14px;display:grid;grid-template-rows:54px minmax(0,1fr);gap:12px}
+    .topbar{display:flex;align-items:center;gap:16px;padding:0 4px}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:.07em;font-size:12px}
+    .brand-mark{display:grid;place-items:center;width:34px;height:34px;border:1px solid #ad6a32;border-radius:11px;background:#24201d;color:var(--amber-lite);font-size:17px;box-shadow:inset 0 0 16px #d0833d20}
+    .brand small{color:var(--soft);font:10px 'DM Mono',monospace;letter-spacing:0}
+    .network{display:flex;align-items:center;gap:8px;margin-left:auto;color:#b6b9ba;font:9px 'DM Mono',monospace}
+    .network i,.online{width:8px;height:8px;border-radius:50%;background:#777;box-shadow:none}
+    .network.connected i{background:var(--green);box-shadow:0 0 12px #78bd8299}
+    .connect-peer,.action-button{border:1px solid #a86431;border-radius:10px;background:#24201d;color:#f2bd82;padding:9px 13px;font:700 11px Manrope,sans-serif;cursor:pointer;transition:background .18s,transform .18s}
+    .connect-peer:hover,.action-button:hover{background:#39271b;transform:translateY(-1px)}
+    .connect-peer:disabled,.action-button:disabled{opacity:.48;cursor:not-allowed;transform:none}
+    .invite-primary{background:linear-gradient(135deg,#c97837,#df9149);border:0;color:#fff8ee}
+    .workspace{display:grid;grid-template-columns:minmax(280px,345px) minmax(0,1fr);gap:12px;min-height:0}
+    .card{background:linear-gradient(145deg,#1b1e21,#17191c);border:1px solid var(--line);border-radius:17px;box-shadow:0 16px 44px #00000024}
+    .contacts{display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .contacts-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px 17px 12px}
+    .contacts-heading h1{margin:0;font-size:20px;letter-spacing:-.05em}
+    .contacts-heading span{color:var(--soft);font:9px 'DM Mono',monospace}
+    .search-wrap{padding:0 13px 11px}
+    .search-wrap input{width:100%;border:1px solid transparent;border-radius:11px;outline:none;background:#222529;color:var(--text);padding:11px 13px;font-size:12px}
+    .search-wrap input:focus{border-color:#a96532}
+    .search-wrap input::placeholder{color:#8c9295}
+    .list-label{padding:11px 17px 5px;color:var(--soft);font:9px 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase}
+    .contact-list{flex:1;min-height:40px;overflow:auto;list-style:none;margin:0;padding:3px 8px 10px}
+    .contact-list li{margin:2px 0}
+    .contact{width:100%;display:flex;align-items:center;gap:11px;padding:10px;border:0;border-radius:12px;background:transparent;text-align:left;cursor:pointer;transition:background .15s}
+    .contact:hover,.contact.active{background:#282b2e}
+    .contact.active{box-shadow:inset 2px 0 var(--amber)}
+    .avatar{display:grid;place-items:center;flex:none;width:42px;height:42px;border-radius:50%;background:linear-gradient(145deg,#d99043,#f1b367);color:#342010;font-size:11px;font-weight:800}
+    .person{min-width:0;flex:1}
+    .person b{display:block;overflow:hidden;font-size:12px;white-space:nowrap;text-overflow:ellipsis}
+    .person small{display:block;overflow:hidden;color:var(--soft);font-size:10px;white-space:nowrap;text-overflow:ellipsis}
+    .online{width:8px;height:8px;flex:none}
+    .online.connected{background:var(--green)}
     .online.available{background:var(--amber-lite);box-shadow:0 0 8px #f0ad6488}
-    .chat-status{text-align:right}.chat-status .secure{display:block}.local-history-note{display:block;margin-top:4px;color:#87858a;font:8px 'DM Mono',monospace;letter-spacing:.02em}
-    @media(max-width:700px){.topbar{flex-wrap:wrap}.topbar .brand{flex:1}.topbar #shareInvite{padding:9px 10px}.empty-chat{padding:10px}}
+    .empty-contacts{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:16px 12px;color:#a0a3a4;font-size:11px;line-height:1.6}
+    .sidebar-tools{display:grid;gap:8px;padding:10px 13px;border-top:1px solid var(--line)}
+    .identity{padding:0}
+    .identity details{border-radius:10px;background:#202327}
+    .identity summary,.transfer summary,.privacy-details summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;color:#c8cbcc;font-size:11px;font-weight:700;cursor:pointer;list-style:none}
+    .identity summary::-webkit-details-marker,.transfer summary::-webkit-details-marker,.privacy-details summary::-webkit-details-marker{display:none}
+    .identity summary:after,.transfer summary:after,.privacy-details summary:after{content:'＋';color:var(--amber-lite);font-size:14px}
+    .identity details[open] summary:after,.transfer[open] summary:after,.privacy-details[open] summary:after{content:'−'}
+    .identity-content{padding:0 12px 12px}
+    .identity-label{display:flex;justify-content:space-between;color:var(--soft);font:8px 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em}
+    .identity-key{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px;color:#efbd85;font:9px 'DM Mono',monospace}
+    .identity-key code{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .copy-key{border:0;background:transparent;color:#e2a15f;font:700 9px 'DM Mono',monospace;cursor:pointer}
+    .identity-connect{display:block;padding:5px 0;text-align:left}
+    .chat{display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden}
+    .chat-header{display:flex;align-items:center;gap:12px;min-height:70px;padding:12px 19px;border-bottom:1px solid var(--line)}
+    .chat-profile{display:flex;align-items:center;gap:11px;min-width:0;flex:1}
+    .chat-profile h2{overflow:hidden;margin:0;font-size:14px;white-space:nowrap;text-overflow:ellipsis}
+    .chat-meta{display:flex;align-items:center;gap:6px;margin-top:3px;color:#9ca1a3;font-size:10px}
+    .chat-presence{width:7px;height:7px;border-radius:50%;background:#777}
+    .secure{color:#a4a8a9}.secure.ready{color:var(--green)}.secure.ready + .chat-presence{background:var(--green)}
+    .local-history-note{display:block;margin-top:2px;color:#777d80;font:8px 'DM Mono',monospace}
+    .chat-actions{display:flex;align-items:center;gap:8px}
+    .icon-button{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line);border-radius:11px;background:#202327;color:#d3d6d6;cursor:pointer}
+    .icon-button:hover{border-color:#87603f;background:#292b2e}
+    .icon-button:disabled{opacity:.42;cursor:not-allowed}
+    .back-chats{display:none}
+    .messages{display:flex;flex:1;flex-direction:column;gap:10px;min-height:0;overflow:auto;padding:23px clamp(16px,4vw,54px);background:radial-gradient(ellipse at center,#1d1b1915,transparent 72%)}
+    .empty-chat{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;max-width:340px;height:100%;min-height:240px;margin:auto;text-align:center;color:#a0a3a4;font-size:12px}
+    .empty-chat:before{content:'⌘';display:grid;place-items:center;width:60px;height:60px;margin-bottom:2px;border:1px solid #46403a;border-radius:50%;background:#22201d;color:var(--amber-lite);font-size:26px}
+    .empty-chat p{max-width:300px;margin:0}
+    .message{max-width:min(75%,560px);padding:10px 13px;border-radius:13px;font-size:12px;overflow-wrap:anywhere;white-space:pre-wrap}
+    .message.in{align-self:flex-start;background:#2a2d30;color:#e3e5e5;border-top-left-radius:4px}
+    .message.out{align-self:flex-end;background:linear-gradient(135deg,#b96931,#d1843e);color:#fff7eb;border-top-right-radius:4px;box-shadow:0 7px 17px #bd6d2c20}
+    .message .stamp{display:block;margin-top:4px;opacity:.68;font:9px 'DM Mono',monospace;text-align:right}
+    .composer{display:flex;align-items:center;gap:9px;padding:12px 16px;border-top:1px solid var(--line);background:#17191c}
+    .composer input{flex:1;min-width:0;border:1px solid transparent;border-radius:24px;outline:none;background:#24272a;color:var(--text);padding:12px 16px;font:12px Manrope,sans-serif}
+    .composer input:focus{border-color:#a96532}
+    .composer input:disabled{opacity:.62}
+    .composer input::placeholder{color:#9a9ea0}
+    .send{border:0;border-radius:50%;background:var(--amber);color:#fff8ee;width:42px;height:42px;flex:none;cursor:pointer;font-size:18px;transition:filter .18s,transform .18s}
+    .send:hover{filter:brightness(1.12);transform:translateY(-1px)}
+    .send:disabled{opacity:.45;cursor:not-allowed;transform:none}
+    .transfer{border:0;border-radius:10px;background:#202327;box-shadow:none}
+    .transfer summary{padding:10px 12px;font-size:10px}
+    .transfer summary span:last-child{margin-left:auto;color:var(--soft);font:9px 'DM Mono',monospace}
+    .transfer-body{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:0 12px 12px}
+    .file-icon{display:none}
+    .filename{font-size:11px;font-weight:800;overflow-wrap:anywhere}
+    .file-meta{margin-top:2px;color:var(--soft);font:9px 'DM Mono',monospace}
+    .progress-track{height:6px;margin:9px 0 5px;border-radius:99px;background:#303338;overflow:hidden}
+    .progress-bar{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#be702f,#e49b50);transition:width .15s linear}
+    .progress-label{display:flex;justify-content:space-between;gap:8px;color:#a7a49f;font:8px 'DM Mono',monospace}
+    .progress-label span:last-child{text-align:right;white-space:nowrap}
+    .transfer-actions{display:flex;justify-content:flex-end}
+    .choose-file{padding:8px 10px}
+    .transfer-footer{padding:0 12px 10px;color:#969b9d;font:8px 'DM Mono',monospace}
+    .transfer-footer strong{color:var(--green);font-weight:500}
+    .received-file-actions{padding:0 12px 12px}
+    .received-file-actions[hidden]{display:none}
+    a.save-file{display:inline-block;color:#23180f;background:#efad65;text-decoration:none;padding:8px 11px;border-radius:8px;font-weight:800;font-size:10px}
+    .privacy-details{border-top:1px solid var(--line)}
+    .privacy-details summary{padding:11px 17px;color:#969b9d;font-size:10px;font-weight:600}
+    .privacy-copy{padding:0 17px 12px;color:#909597;font-size:9px;line-height:1.55}
+    .privacy-copy p{margin:0 0 5px}
+    .stat b{color:#d9dcdd;font-size:10px;font-weight:500}
+    .stat b em{font:inherit;color:var(--green);font-style:normal}
+    .notice{position:fixed;bottom:20px;left:50%;z-index:12;transform:translate(-50%,120px);opacity:0;transition:.25s;background:#ece7dc;color:#2a211a;padding:10px 14px;border-radius:9px;box-shadow:0 9px 26px #0005;font-size:12px;font-weight:700;max-width:calc(100% - 28px);text-align:center}
+    .notice.show{transform:translate(-50%,0);opacity:1}
+    .modal-backdrop{position:fixed;inset:0;z-index:10;display:none;place-items:center;padding:14px;background:#050506b8;backdrop-filter:blur(5px)}
+    .modal-backdrop.open{display:grid}
+    .modal{width:min(100%,440px);max-height:calc(100dvh - 28px);overflow:auto;padding:23px;border:1px solid #424149;border-radius:18px;background:#1c1d22;box-shadow:0 28px 80px #0009}
+    .modal-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+    .modal h2{margin:0;font-size:19px;letter-spacing:-.04em}
+    .modal p{margin:7px 0 20px;color:#a7a49f;font-size:12px}
+    .close-modal{border:0;background:transparent;color:#aaa;cursor:pointer;font-size:20px;line-height:1}
+    .modal label{display:block;margin:14px 0 6px;color:#c5c1ba;font-size:11px;font-weight:700}
+    .modal input{width:100%;border:1px solid #404149;border-radius:10px;outline:0;background:#121317;color:#f1f0ec;padding:12px;font:12px 'DM Mono',monospace}
+    .modal input:focus{border-color:#cc7c3a}
+    .modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}
+    .modal-actions button{border-radius:9px;padding:10px 13px;font:700 11px Manrope,sans-serif;cursor:pointer}
+    .cancel{border:1px solid #45454b;background:transparent;color:#d8d5cf}
+    .confirm{border:0;background:var(--amber);color:white}
+    .help-line{margin-top:15px;color:#929698;font-size:10px;line-height:1.55}
+    .help-line b{color:#e7b17a}
+    .key-error{min-height:16px;margin-top:7px;color:#ed9585;font-size:10px}
+    .login-screen{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 15% -10%,#30241a 0,transparent 32rem),#101214}
+    .login-screen[hidden],.shell[hidden]{display:none!important}
+    .login-card{width:min(100%,410px);padding:30px;border:1px solid #303338;border-radius:22px;background:linear-gradient(145deg,#1b1e21,#17191c);box-shadow:0 26px 80px #0008}
+    .login-brand{display:flex;align-items:center;gap:10px;margin-bottom:32px;font-size:11px;font-weight:800;letter-spacing:.08em}
+    .login-brand .brand-mark{width:36px;height:36px}
+    .login-eyebrow{margin:0 0 9px;color:var(--amber-lite);font:9px 'DM Mono',monospace;letter-spacing:.12em}
+    .login-card h1{margin:0;font-size:27px;letter-spacing:-.06em}
+    .login-intro{margin:8px 0 23px;color:#a7abad;font-size:12px}
+    .login-card label{display:block;margin:0 0 7px;color:#d0d2d3;font-size:11px;font-weight:700}
+    .login-card input{width:100%;border:1px solid #404349;border-radius:11px;outline:0;background:#121417;color:var(--text);padding:13px;font:13px Manrope,sans-serif}
+    .login-card input:focus{border-color:#c27a3c}
+    .login-submit{width:100%;margin-top:13px;padding:12px;border:0;border-radius:11px;background:linear-gradient(135deg,#c97837,#df9149);color:#fff;font:800 12px Manrope,sans-serif;cursor:pointer}
+    .login-note{margin:18px 0 0;color:#929698;font-size:10px;line-height:1.6}
+    .account-button{display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#202327;color:#d2d5d6;font-size:10px;cursor:pointer}
+    .account-button:hover{border-color:#88603d;background:#292b2e}
+    .account-dot{width:7px;height:7px;border-radius:50%;background:var(--amber-lite)}
+    @media(max-width:760px){
+      .shell{padding:8px;grid-template-rows:48px minmax(0,1fr);gap:8px}
+      .topbar{gap:9px;padding:0 3px}.brand{font-size:10px;gap:8px}.brand-mark{width:31px;height:31px}.brand small{font-size:8px}
+      .network{display:none}.topbar #shareInvite{padding:9px 11px;font-size:10px}
+      .workspace{grid-template-columns:minmax(0,1fr);gap:0}
+      .contacts{min-height:0}.chat{display:none}
+      .shell.chat-open .contacts{display:none}.shell.chat-open .chat{display:flex}
+      .contacts-heading{padding:14px 14px 10px}.contacts-heading h1{font-size:19px}
+      .contact-list{padding:3px 7px 8px}.contact{padding:11px 9px}.avatar{width:44px;height:44px}
+      .sidebar-tools{padding:9px 10px}
+      .chat-header{min-height:64px;padding:9px 10px;gap:8px}
+      .back-chats{display:grid;width:34px;height:36px;border:0;background:transparent;color:var(--amber-lite);font-size:22px}
+      .chat-profile{gap:9px}.chat-profile .avatar{width:39px;height:39px}
+      .chat-actions{gap:5px}.icon-button{width:36px;height:36px}
+      .messages{padding:17px 12px}.message{max-width:86%}
+      .composer{gap:7px;padding:9px 9px calc(9px + env(safe-area-inset-bottom))}
+      .composer input{padding:12px 13px}.send{width:41px;height:41px}
+      .empty-chat{min-height:200px}.privacy-details summary{padding-left:14px}
+    }
+    @media(max-width:380px){.brand small{display:none}.chat-header{gap:5px}.chat-actions .icon-button{width:33px;height:33px}.secure{font-size:8px}}
   </style>
 </head>
 <body>
-  <main class="shell">
+  <section class="login-screen" id="loginScreen" aria-labelledby="loginTitle">
+    <div class="login-card">
+      <div class="login-brand"><span class="brand-mark">⌘</span><span>CIPHER MESH X<br><small>private, direct chats</small></span></div>
+      <p class="login-eyebrow">YOUR PRIVATE CHAT SPACE</p>
+      <h1 id="loginTitle">Welcome to Cipher Mesh X</h1>
+      <p class="login-intro">Choose your display name to continue to your chats.</p>
+      <form id="loginForm">
+        <label for="loginName">Display name</label>
+        <input id="loginName" maxlength="28" autocomplete="name" placeholder="e.g. Ravi" required>
+        <button class="login-submit" id="loginSubmit" type="submit">Continue to chats</button>
+      </form>
+      <p class="login-note">This profile is saved on this device. The prototype does not use passwords or online accounts; your peer code and chats remain in this browser.</p>
+    </div>
+  </section>
+  <main class="shell" hidden>
     <header class="topbar">
-      <div class="brand"><span class="brand-mark">⌘</span><span>CIPHER MESH X<br><small>direct encrypted peer network</small></span></div>
-      <div class="network" id="network"><i></i><span id="networkText">CONNECTING TO SIGNALING</span></div>
-      <button class="connect-peer invite-primary" id="shareInvite">Invite a friend</button>
+      <div class="brand"><span class="brand-mark">⌘</span><span>CIPHER MESH X<br><small>private, direct chats</small></span></div>
+      <div class="network" id="network"><i></i><span id="networkText">CONNECTING</span></div>
+      <button class="account-button" id="changeProfile" type="button" title="Change display name"><span class="account-dot"></span><span id="displayName">Profile</span></button>
+      <button class="connect-peer invite-primary" id="shareInvite" type="button">Invite</button>
     </header>
-    <section class="title-row"><h1>Chat directly with<br>people you trust.</h1><p>Invite a friend with one link. Once they join, tap their name to start chatting.</p></section>
     <section class="workspace">
-      <aside class="card contacts">
-        <header class="card-header"><h2>Contacts &amp; Identity</h2><span id="peerCount">0 CONTACTS</span></header>
-        <div class="identity"><div class="identity-label"><span>My peer code</span><span>share privately</span></div><div class="identity-key"><code id="myPeerKey">Generating code…</code><button class="copy-key" id="copyKey" type="button">COPY</button></div><button class="copy-key identity-connect" id="openConnect" type="button">Connect with a code →</button></div>
-        <ul class="contact-list" id="contactList"><li class="empty-contacts" id="emptyContacts"><span>No contacts yet. Invite someone to start chatting, or connect with a peer code.</span><button class="action-button" type="button" data-share-invite>Share invite link</button></li></ul>
-      </aside>
-      <section class="card chat">
-        <header class="card-header"><div class="chat-title"><h2 id="chatName">Select a peer</h2><span class="lock">▣</span></div><div class="chat-status"><span class="secure" id="secureStatus">WAITING</span><small class="local-history-note">LOCAL ONLY · LAST 200</small></div></header>
-        <div class="messages" id="messages"><div class="empty-chat" id="emptyChat"><p>Chat with someone in a few taps. Share your invite link and keep this page open while they join.</p><button class="action-button" type="button" data-share-invite>Invite a friend</button></div></div>
-        <form class="composer" id="messageForm"><input id="messageInput" maxlength="4000" autocomplete="off" placeholder="Connect to a peer to send a message…" disabled><button class="send" id="sendMessage" aria-label="Send message" disabled>↑</button></form>
-      </section>
-      <aside class="card transfer">
-        <header class="card-header"><h2>Fast File Transfer</h2><span id="transferState">READY</span></header>
-        <div class="transfer-body">
-          <div>
-            <div class="file-icon" id="fileIcon">FILE</div>
-            <div class="filename" id="fileName">Select a file to send</div>
-            <div class="file-meta" id="fileMeta">Encrypted in 256 KB chunks</div>
-            <div class="progress-track" role="progressbar" aria-label="File transfer progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progressBar" class="progress-bar"></div></div>
-            <div class="progress-label"><span id="progressText">Waiting for a peer</span><span id="speed">—</span></div>
-            <div class="transfer-actions"><button class="action-button choose-file" type="button" id="chooseFile" disabled>Choose a file to send</button><input id="fileInput" type="file" hidden></div>
+      <aside class="card contacts" aria-label="Chats">
+        <div class="contacts-heading"><h1>Chats</h1><button class="connect-peer" id="openConnect" type="button">＋ New chat</button></div>
+        <div class="search-wrap"><input id="contactSearch" type="search" autocomplete="off" placeholder="Search chats" aria-label="Search chats"></div>
+        <div class="list-label">Your conversations <span id="peerCount">0 CONTACTS</span></div>
+        <ul class="contact-list" id="contactList" aria-label="Contact list"><li class="empty-contacts" id="emptyContacts"><span>No chats yet. Start a chat with an invite link or peer code.</span><button class="action-button" type="button" data-share-invite>Invite a friend</button></li></ul>
+        <div class="sidebar-tools">
+          <div class="identity">
+            <details>
+              <summary>Your invite code <span>share privately</span></summary>
+              <div class="identity-content"><div class="identity-label"><span>My peer code</span></div><div class="identity-key"><code id="myPeerKey">Generating code…</code><button class="copy-key" id="copyKey" type="button">COPY</button></div></div>
+            </details>
           </div>
-          <div class="peers"><div class="peer active"><span class="avatar">YOU</span>THIS DEVICE</div><div class="peer" id="peerBadge"><span class="avatar">P2</span>PEER</div></div>
+          <details class="transfer" id="transferPanel">
+            <summary><span>File sharing</span><span id="transferState">READY</span></summary>
+            <div class="transfer-body">
+              <div>
+                <div class="file-icon" id="fileIcon">FILE</div>
+                <div class="filename" id="fileName">Select a file to send</div>
+                <div class="file-meta" id="fileMeta">AES-256-GCM encrypted</div>
+                <div class="progress-track" role="progressbar" aria-label="File transfer progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progressBar" class="progress-bar"></div></div>
+                <div class="progress-label"><span id="progressText">Waiting for a peer</span><span id="speed">—</span></div>
+              </div>
+              <div class="transfer-actions"><button class="action-button choose-file" type="button" id="chooseFile" disabled>Choose file</button><input id="fileInput" type="file" hidden></div>
+            </div>
+            <footer class="transfer-footer" id="transferFooter"><strong>●</strong> Direct WebRTC transfer</footer>
+            <div class="received-file-actions" id="receivedFileActions" aria-live="polite" hidden></div>
+          </details>
         </div>
-        <footer class="transfer-footer" id="transferFooter"><strong>●</strong> Direct channel uses WebRTC encryption</footer>
+        <details class="privacy-details">
+          <summary>Connection &amp; privacy</summary>
+          <div class="privacy-copy">
+            <p class="stat"><b id="connectionStat">Waiting <em>● peer</em></b></p>
+            <p>Messages stay on this device and travel directly to your peer after connection. Both people need the app open.</p>
+            <p>Peer codes are private invite links. Share them only with people you trust.</p>
+          </div>
+        </details>
       </aside>
+      <section class="card chat" aria-label="Conversation">
+        <header class="chat-header">
+          <button class="back-chats" id="backToChats" type="button" aria-label="Back to chats">‹</button>
+          <div class="chat-profile"><span class="avatar" id="chatAvatar">⌘</span><div><h2 id="chatName">Welcome to Cipher Mesh X</h2><div class="chat-meta"><span class="secure" id="secureStatus">Choose a chat to start</span><span class="chat-presence"></span></div><small class="local-history-note">Messages saved on this device</small></div></div>
+          <div class="chat-actions"><button class="icon-button" id="attachFile" type="button" aria-label="Attach a file" title="Attach a file" disabled>＋</button></div>
+        </header>
+        <div class="messages" id="messages"><div class="empty-chat" id="emptyChat"><p>Pick a chat from your list, or start a new one. Invite a friend with one link and keep Cipher Mesh X open while they join.</p><button class="action-button" type="button" id="emptyStartChat">＋ New chat</button></div></div>
+        <form class="composer" id="messageForm"><input id="messageInput" maxlength="4000" autocomplete="off" placeholder="Choose a chat to write a message…" disabled><button class="send" id="sendMessage" type="submit" aria-label="Send message" title="Send message" disabled>↑</button></form>
+      </section>
     </section>
-    <section class="bottom"><div class="card stat"><span class="stat-label">Connection</span><b id="connectionStat">Waiting <em>● peer</em></b></div><div class="card stat"><span class="stat-label">Transfer mode</span><b>Direct <em>● WebRTC</em></b></div><div class="card stat"><span class="stat-label">File protection</span><b>AES-256 <em>● authenticated chunks</em></b></div></section>
   </main>
   <div class="notice" id="notice" role="status" aria-live="polite"></div>
   <div class="modal-backdrop" id="connectModal" aria-hidden="true">
@@ -89,7 +271,7 @@
     const connectingPeers=new Set();
     const pendingProbes=new Map();
     let socket=null,registered=false,reconnectTimer=null,heartbeatTimer=null,signalQueue=Promise.resolve(),signalOutbox=[];
-    let historyWarningShown=false,localHistory=[];
+    let historyWarningShown=false,localHistory=[],receivedFileUrl=null,activeTransferPeerId=null,inviteModalPending=false;
 
     function persistLocalMessage(peerId,entry){
       localHistory.push({peerId,messageId:entry.messageId,text:entry.text,direction:entry.direction,time:entry.time});
@@ -103,6 +285,7 @@
         if(!Array.isArray(rows))throw new Error('Saved chat history has an invalid format.');
         localHistory=rows.filter(row=>row&&KEY_PATTERN.test(row.peerId||'')&&typeof row.messageId==='string'&&typeof row.text==='string'&&(row.direction==='in'||row.direction==='out')&&Number.isFinite(row.time)).slice(-HISTORY_LIMIT);
         for(const row of localHistory){const history=conversations.get(row.peerId)||[];history.push({messageId:row.messageId,text:row.text,direction:row.direction,time:row.time});conversations.set(row.peerId,history);}
+        for(const peerId of contacts.keys())updateContactPreview(peerId);
         const active=selectedPeerId();if(active)renderConversation(active,peers.get(active)?.channel?.readyState==='open');
       }catch(error){console.warn('Local chat history could not be loaded',error);showHistoryWarning();}
     }
@@ -119,6 +302,8 @@
       localStorage.setItem('cipherMeshPeerKey',myPeerKey);
     }
     $('#myPeerKey').textContent=myPeerKey;
+    $('#loginName').value=localStorage.getItem('cipherMeshDisplayName')||'';
+    $('#displayName').textContent=localStorage.getItem('cipherMeshDisplayName')||'Profile';
 
     const initials=name=>name.trim().split(/\s+/).map(part=>part[0]).slice(0,2).join('').toUpperCase();
     const savedContacts=()=>{try{return JSON.parse(localStorage.getItem('cipherMeshContacts')||'[]')}catch{return []}};
@@ -129,30 +314,47 @@
     function saveContacts(){localStorage.setItem('cipherMeshContacts',JSON.stringify([...contacts.values()].map(({name,peerId})=>({name,peerId}))));}
     function addContact(name,peerId,save=true){
       let contact=contacts.get(peerId);
-      if(contact){if(name&&contact.name.startsWith('Peer ')){contact.name=name;contact.item.querySelector('b').textContent=name;}return contact;}
+      if(contact){if(name&&contact.name.startsWith('Peer ')){contact.name=name;contact.item.querySelector('b').textContent=name;contact.item.querySelector('.avatar').textContent=initials(name)||'P';}return contact;}
       contact={name,peerId,item:null};
-      const item=document.createElement('li');item.className='contact';item.dataset.peerId=peerId;
+      const row=document.createElement('li');
+      const item=document.createElement('button');item.type='button';item.className='contact';item.dataset.peerId=peerId;item.setAttribute('aria-current','false');
       const avatar=document.createElement('span');avatar.className='avatar';avatar.textContent=initials(name)||'P';
-      const person=document.createElement('span');person.className='person';const title=document.createElement('b');title.textContent=name;const subtitle=document.createElement('small');subtitle.textContent=`Peer code · ${peerId.slice(-9)}`;person.append(title,subtitle);
-      const online=document.createElement('i');online.className='online';online.setAttribute('aria-label','Not connected');item.append(avatar,person,online);
-      $('#emptyContacts')?.remove();$('#contactList').append(item);contact.item=item;contacts.set(peerId,contact);
-      $('#peerCount').textContent=`${contacts.size} CONTACT${contacts.size===1?'':'S'}`;
+      const person=document.createElement('span');person.className='person';const title=document.createElement('b');title.textContent=name;const subtitle=document.createElement('small');subtitle.textContent='Peer code · '+peerId.slice(-9);person.append(title,subtitle);
+      const online=document.createElement('i');online.className='online';online.setAttribute('aria-label','Not connected');item.append(avatar,person,online);row.append(item);
+      $('#emptyContacts')?.remove();$('#contactList').append(row);contact.item=item;contacts.set(peerId,contact);
+      $('#peerCount').textContent=contacts.size+' CONTACT'+(contacts.size===1?'':'S');
+      updateContactPreview(peerId);
       if(save)saveContacts();return contact;
     }
-    function setContactAvailable(peerId,available){const contact=contacts.get(peerId);if(!contact)return;if(peers.get(peerId)?.channel?.readyState==='open')return;const dot=contact.item.querySelector('.online');dot.classList.toggle('available',available);dot.setAttribute('aria-label',available?'Online':'Offline');contact.item.querySelector('small').textContent=`${available?'Online':'Peer code'} · ${peerId.slice(-9)}`;}
-    function setContactConnected(peerId,connected){const contact=contacts.get(peerId);if(!contact)return;const dot=contact.item.querySelector('.online');dot.classList.toggle('connected',connected);dot.classList.remove('available');dot.setAttribute('aria-label',connected?'Connected':'Not connected');contact.item.querySelector('small').textContent=`${connected?'Connected':'Peer code'} · ${peerId.slice(-9)}`;if(!connected)connectingPeers.delete(peerId);}
+    function updateContactPreview(peerId){
+      const contact=contacts.get(peerId);if(!contact)return;
+      const latest=(conversations.get(peerId)||[]).slice(-1)[0];
+      const small=contact.item.querySelector('small');
+      if(latest){const preview=latest.text.replace(/\s+/g,' ').trim();small.textContent=(latest.direction==='out'?'You: ':'')+(preview.length>42?preview.slice(0,42)+'…':preview);return;}
+      const dot=contact.item.querySelector('.online');
+      small.textContent=dot.classList.contains('connected')?'Connected':(dot.classList.contains('available')?'Online':'Peer code · '+peerId.slice(-9));
+    }
+    function setContactAvailable(peerId,available){
+      const contact=contacts.get(peerId);if(!contact)return;if(peers.get(peerId)?.channel?.readyState==='open')return;
+      const dot=contact.item.querySelector('.online');dot.classList.toggle('available',available);dot.setAttribute('aria-label',available?'Online':'Offline');updateContactPreview(peerId);
+      if(selectedPeerId()===peerId){$('#secureStatus').textContent=available?'Online · connecting…':'Offline · tap to retry';$('#secureStatus').classList.remove('ready');const empty=$('#messages .empty-chat');if(empty&&!available)empty.textContent='Your contact is offline. Ask them to open Cipher Mesh X, then tap this chat to try again.';}
+    }
+    function setContactConnected(peerId,connected){
+      const contact=contacts.get(peerId);if(!contact)return;const dot=contact.item.querySelector('.online');dot.classList.toggle('connected',connected);dot.classList.remove('available');dot.setAttribute('aria-label',connected?'Connected':'Not connected');updateContactPreview(peerId);if(!connected)connectingPeers.delete(peerId);
+    }
     function selectedPeerId(){return $('.contact.active')?.dataset.peerId||null;}
     function peerForSelection(){const id=selectedPeerId();return id?peers.get(id):null;}
     function selectContact(peerId){
       const contact=contacts.get(peerId);if(!contact)return;
-      document.querySelectorAll('.contact').forEach(item=>item.classList.toggle('active',item.dataset.peerId===peerId));
-      $('#chatName').textContent=contact.name;
+      document.querySelectorAll('.contact').forEach(item=>{const selected=item.dataset.peerId===peerId;item.classList.toggle('active',selected);item.setAttribute('aria-current',String(selected));});
+      $('#chatName').textContent=contact.name;$('#chatAvatar').textContent=initials(contact.name)||'P';
+      document.querySelector('.shell').classList.add('chat-open');
       const peer=peers.get(peerId),ready=peer?.channel?.readyState==='open';
-      $('#secureStatus').textContent=ready?'DTLS ENCRYPTED':'CONNECTING';$('#secureStatus').classList.toggle('ready',ready);
-      $('#messageInput').disabled=!ready;$('#sendMessage').disabled=!ready;$('#chooseFile').disabled=!ready;
-      $('#messageInput').placeholder=ready?'Write an encrypted message…':'Waiting for direct connection…';
+      $('#secureStatus').textContent=ready?'Connected · direct':(peer?.channel?.readyState==='closed'?'Disconnected · tap to retry':'Connecting…');
+      $('#secureStatus').classList.toggle('ready',ready);
+      $('#messageInput').disabled=!ready;$('#sendMessage').disabled=!ready;$('#chooseFile').disabled=!ready;$('#attachFile').disabled=!ready;
+      $('#messageInput').placeholder=ready?'Message…':'Waiting for direct connection…';
       $('#connectionStat').innerHTML=ready?'Connected <em>● direct</em>':'Connecting <em>● peer</em>';
-      $('#peerBadge').classList.toggle('active',ready);
       renderConversation(peerId,ready);
     }
     function sendSignal(message){
@@ -245,8 +447,8 @@
       pc.addEventListener('connectionstatechange',()=>{
         const connected=pc.connectionState==='connected';setContactConnected(peerId,connected);
       if(pc.connectionState==='failed'||pc.connectionState==='closed'){
-        connectingPeers.delete(peerId);
-          setContactConnected(peerId,false);if(selectedPeerId()===peerId){$('#secureStatus').textContent='DISCONNECTED';$('#secureStatus').classList.remove('ready');$('#messageInput').disabled=true;$('#sendMessage').disabled=true;$('#chooseFile').disabled=true;}
+        connectingPeers.delete(peerId);abortPeerTransfers(peerId,peer);
+          setContactConnected(peerId,false);if(selectedPeerId()===peerId){$('#secureStatus').textContent='Disconnected · tap to retry';$('#secureStatus').classList.remove('ready');$('#connectionStat').innerHTML='Disconnected <em>● peer</em>';$('#messageInput').disabled=true;$('#sendMessage').disabled=true;$('#chooseFile').disabled=true;$('#attachFile').disabled=true;}
           peers.delete(peerId);
         }
       });
@@ -254,11 +456,30 @@
       else pc.addEventListener('datachannel',event=>attachDataChannel(peerId,peer,event.channel));
       return peer;
     }
+    function rejectIncomingFile(peer,id){
+      if(typeof id!=='string'||peer.channel?.readyState!=='open')return;
+      try{peer.channel.send(JSON.stringify({type:'file-rejected',id}));}catch(error){console.warn('Could not reject the incoming file',error);}
+    }
+    function failIncomingFile(peerId,peer,message){
+      const transfer=peer.incomingFile;if(!transfer)return;
+      rejectIncomingFile(peer,transfer.id);peer.incomingFile=null;
+      if(activeTransferPeerId===peerId){activeTransferPeerId=null;$('#transferState').textContent='FAILED';transferProgress(0,'File transfer failed','—');$('#transferFooter').textContent='The incoming file was incomplete or could not be authenticated.';}
+      notice(message);
+    }
+    function abortPeerTransfers(peerId,peer,message='The peer disconnected before the file finished.'){
+      const hadIncoming=Boolean(peer.incomingFile),outgoing=[...peer.outgoingFiles.values()];
+      if(!hadIncoming&&!outgoing.length)return;
+      if(hadIncoming){rejectIncomingFile(peer,peer.incomingFile.id);peer.incomingFile=null;}
+      for(const transfer of outgoing)clearTimeout(transfer.ackTimer);
+      peer.outgoingFiles.clear();
+      if(activeTransferPeerId===peerId){activeTransferPeerId=null;$('#transferState').textContent='FAILED';transferProgress(0,'Transfer interrupted','—');$('#transferFooter').textContent='Reconnect to this peer and send the file again.';}
+      notice(message);
+    }
     function attachDataChannel(peerId,peer,channel){
       peer.channel=channel;channel.binaryType='arraybuffer';channel.bufferedAmountLowThreshold=BUFFER_LIMIT/4;
       channel.addEventListener('open',()=>{connectingPeers.delete(peerId);setContactConnected(peerId,true);if(selectedPeerId()===peerId)selectContact(peerId);notice(`You're chatting with ${contacts.get(peerId)?.name||'your peer'}.`)});
-      channel.addEventListener('close',()=>{connectingPeers.delete(peerId);setContactConnected(peerId,false);if(selectedPeerId()===peerId)selectContact(peerId)});
-      channel.addEventListener('message',event=>{peer.incomingQueue=peer.incomingQueue.then(()=>receiveData(peerId,peer,event.data)).catch(error=>{console.error('Transfer error',error);notice('A message or file chunk could not be verified.');});});
+      channel.addEventListener('close',()=>{connectingPeers.delete(peerId);setContactConnected(peerId,false);abortPeerTransfers(peerId,peer);if(selectedPeerId()===peerId)selectContact(peerId)});
+      channel.addEventListener('message',event=>{peer.incomingQueue=peer.incomingQueue.then(()=>receiveData(peerId,peer,event.data)).catch(error=>{console.error('Transfer error',error);if(peer.incomingFile)failIncomingFile(peerId,peer,'The incoming file could not be verified. Ask the sender to retry.');else notice('A message or file chunk could not be verified.');});});
     }
     async function initiatePeer(peerId){
       const peer=getPeer(peerId,true);peer.initiator=true;
@@ -268,15 +489,15 @@
     }
     function renderConversation(peerId,ready){
       const history=conversations.get(peerId)||[];$('#messages').replaceChildren();
-      if(!history.length){const empty=document.createElement('div');empty.className='empty-chat';empty.textContent=ready?'Your direct session is ready. Send a message or file.':'Open the same peer code on both devices to establish a direct connection.';$('#messages').append(empty);return;}
-      for(const entry of history){const message=document.createElement('div');message.className=`message ${entry.direction}`;message.textContent=entry.text;const stamp=document.createElement('span');stamp.className='stamp';stamp.textContent=new Date(entry.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});message.append(stamp);$('#messages').append(message);}
+      if(!history.length){const empty=document.createElement('div');empty.className='empty-chat';empty.textContent=ready?'Say hello to start the conversation.':'Connecting to your contact. Keep this page open while they join.';$('#messages').append(empty);return;}
+      for(const entry of history){const message=document.createElement('div');message.className='message '+entry.direction;message.textContent=entry.text;const stamp=document.createElement('span');stamp.className='stamp';stamp.textContent=new Date(entry.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});message.append(stamp);$('#messages').append(message);}
       $('#messages').lastElementChild?.scrollIntoView({block:'end'});
     }
     function appendMessage(text,direction,time=Date.now(),peerId=selectedPeerId()){
       if(!peerId)return;const entry={messageId:crypto.randomUUID(),text,direction,time};const history=conversations.get(peerId)||[];history.push(entry);if(history.length>HISTORY_LIMIT)history.splice(0,history.length-HISTORY_LIMIT);conversations.set(peerId,history);
-      persistLocalMessage(peerId,entry);
+      persistLocalMessage(peerId,entry);updateContactPreview(peerId);
       if(selectedPeerId()!==peerId)return;
-      $('#emptyChat')?.remove();const message=document.createElement('div');message.className=`message ${direction}`;message.textContent=text;
+      $('#emptyChat')?.remove();const message=document.createElement('div');message.className='message '+direction;message.textContent=text;
       const stamp=document.createElement('span');stamp.className='stamp';stamp.textContent=new Date(time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});message.append(stamp);$('#messages').append(message);message.scrollIntoView({behavior:'smooth',block:'end'});
     }
     function base64(bytes){let value='';for(const byte of bytes)value+=String.fromCharCode(byte);return btoa(value);}
@@ -288,9 +509,9 @@
       $('#progressText').textContent=label;$('#speed').textContent=speedText;
     }
     function formatBytes(bytes){if(bytes<1024)return `${bytes} B`;if(bytes<1024*1024)return `${(bytes/1024).toFixed(1)} KB`;return `${(bytes/1024/1024).toFixed(2)} MB`;}
-    function armDeliveryTimeout(peer,id,outgoing){
+    function armDeliveryTimeout(peerId,peer,id,outgoing){
       clearTimeout(outgoing.ackTimer);
-      outgoing.ackTimer=setTimeout(()=>{if(!peer.outgoingFiles.has(id))return;peer.outgoingFiles.delete(id);$('#transferState').textContent='FAILED';notice('No delivery receipt arrived. Reconnect and retry the file.');},300000);
+      outgoing.ackTimer=setTimeout(()=>{if(!peer.outgoingFiles.has(id))return;peer.outgoingFiles.delete(id);if(activeTransferPeerId===peerId){activeTransferPeerId=null;$('#transferState').textContent='FAILED';transferProgress(0,'Delivery receipt timed out','—');}notice('No delivery receipt arrived. Reconnect and retry the file.');},300000);
     }
     function waitForCapacity(channel){
       if(channel.readyState!=='open')return Promise.reject(new Error('Peer channel closed.'));
@@ -307,8 +528,11 @@
       $('#fileInput').value='';$('#transferState').textContent='RECEIVED';
       $('#progressBar').style.width='100%';$('.progress-track').setAttribute('aria-valuenow','100');
       transferProgress(100,'File received','verified');$('#transferFooter').innerHTML='<strong>●</strong> Every AES-GCM chunk authenticated';
-      const save=document.createElement('a');save.className='save-file';save.textContent='Save received file';save.download=file.name;save.href=URL.createObjectURL(file.blob);
-      $('#transferFooter').append(document.createElement('br'),save);setTimeout(()=>URL.revokeObjectURL(save.href),60000);
+      if(receivedFileUrl)URL.revokeObjectURL(receivedFileUrl);
+      $('#transferPanel').open=true;
+      receivedFileUrl=URL.createObjectURL(file.blob);
+      const save=document.createElement('a');save.className='save-file';save.textContent='Save received file';save.download=file.name;save.href=receivedFileUrl;
+      const actions=$('#receivedFileActions');actions.replaceChildren(save);actions.hidden=false;
     }
     async function receiveData(peerId,peer,data){
       if(typeof data==='string'){
@@ -318,34 +542,44 @@
           const validSize=Number.isSafeInteger(message.size)&&message.size>=0&&message.size<=MAX_RECEIVE_BYTES;
           const validChunk=Number.isSafeInteger(message.chunkSize)&&message.chunkSize>=16*1024&&message.chunkSize<=CHUNK_TARGET;
           const expectedChunks=validChunk?Math.max(1,Math.ceil(message.size/message.chunkSize)):0;
-          if(!validSize||!validChunk||message.totalChunks!==expectedChunks||peer.incomingFile){peer.channel.send(JSON.stringify({type:'file-rejected',id:message.id}));return;}
-          const rawKey=fromBase64(message.key),prefix=fromBase64(message.ivPrefix);
-          if(rawKey.byteLength!==32||prefix.byteLength!==8||typeof message.id!=='string'||message.id.length>64){peer.channel.send(JSON.stringify({type:'file-rejected',id:message.id}));return;}
-          const key=await crypto.subtle.importKey('raw',rawKey,{name:'AES-GCM'},false,['decrypt']);
-          peer.incomingFile={id:message.id,name:safeName(message.name),size:message.size,type:message.mimeType||'application/octet-stream',chunkSize:message.chunkSize,total:message.totalChunks,prefix,key,chunks:new Array(message.totalChunks),nextIndex:0,received:0,bytesSinceAck:0,lastUiUpdate:0};
+          const validId=typeof message.id==='string'&&/^[\da-f-]{36}$/i.test(message.id);
+          if(!validSize||!validChunk||!Number.isSafeInteger(expectedChunks)||expectedChunks>131072||message.totalChunks!==expectedChunks||!validId||peer.incomingFile){rejectIncomingFile(peer,message.id);return;}
+          let rawKey,prefix,key;
+          try{rawKey=fromBase64(message.key);prefix=fromBase64(message.ivPrefix);if(rawKey.byteLength!==32||prefix.byteLength!==8)throw new Error('Invalid file encryption metadata.');key=await crypto.subtle.importKey('raw',rawKey,{name:'AES-GCM'},false,['decrypt']);}
+          catch(error){rejectIncomingFile(peer,message.id);return;}
+          const mimeType=typeof message.mimeType==='string'&&message.mimeType.length<=128?message.mimeType:'application/octet-stream';
+          peer.incomingFile={id:message.id,name:safeName(message.name),size:message.size,type:mimeType,chunkSize:message.chunkSize,total:message.totalChunks,prefix,key,chunks:new Array(message.totalChunks),nextIndex:0,received:0,bytesSinceAck:0,lastUiUpdate:0};
+          activeTransferPeerId=peerId;$('#transferPanel').open=true;
           $('#fileName').textContent=peer.incomingFile.name;$('#fileMeta').textContent=`${formatBytes(message.size)} · AES-256-GCM`;
           $('#fileIcon').textContent=(peer.incomingFile.name.split('.').pop()||'FILE').slice(0,4).toUpperCase();$('#transferState').textContent='RECEIVING';
           $('#transferFooter').textContent=`Encrypted direct from ${contacts.get(peerId)?.name||'peer'}`;
           transferProgress(0,'Receiving encrypted chunks','—');return;
         }
         if(message.type==='file-progress'){
-          const outgoing=peer.outgoingFiles.get(message.id);if(outgoing){outgoing.acked=message.bytes;armDeliveryTimeout(peer,message.id,outgoing);const rate=outgoing.acked/Math.max(.1,(performance.now()-outgoing.started)/1000);transferProgress(outgoing.size?outgoing.acked/outgoing.size*100:0,`${formatBytes(outgoing.acked)} of ${formatBytes(outgoing.size)} acknowledged`,rate>0?`${(rate/1024/1024).toFixed(1)} MB/s`:'—');}return;
+          const outgoing=peer.outgoingFiles.get(message.id);if(outgoing){outgoing.acked=Math.max(outgoing.acked,Math.min(outgoing.size,Number.isSafeInteger(message.bytes)?message.bytes:0));armDeliveryTimeout(peerId,peer,message.id,outgoing);const rate=outgoing.acked/Math.max(.1,(performance.now()-outgoing.started)/1000);if(activeTransferPeerId===peerId)transferProgress(outgoing.size?outgoing.acked/outgoing.size*100:0,`${formatBytes(outgoing.acked)} of ${formatBytes(outgoing.size)} acknowledged`,rate>0?`${(rate/1024/1024).toFixed(1)} MB/s`:'—');}return;
         }
         if(message.type==='file-end'){
-          const transfer=peer.incomingFile;if(!transfer||transfer.id!==message.id||transfer.nextIndex!==transfer.total)return;
-          const blob=new Blob(transfer.chunks,{type:transfer.type});const file={name:transfer.name,size:transfer.size,blob};showSaveFile(file);
-          peer.channel.send(JSON.stringify({type:'file-received',id:transfer.id}));peer.incomingFile=null;notice(`${file.name} received. Save it from the transfer panel.`);return;
+          const transfer=peer.incomingFile;if(!transfer){rejectIncomingFile(peer,message.id);return;}
+          if(transfer.id!==message.id){failIncomingFile(peerId,peer,'The file transfer became inconsistent. Ask the sender to retry.');return;}
+          if(transfer.nextIndex!==transfer.total){failIncomingFile(peerId,peer,'The file arrived incomplete. Ask the sender to retry.');return;}
+          const blob=new Blob(transfer.chunks,{type:transfer.type}),file={name:transfer.name,size:transfer.size,blob};
+          peer.incomingFile=null;if(activeTransferPeerId===peerId)activeTransferPeerId=null;showSaveFile(file);
+          try{peer.channel.send(JSON.stringify({type:'file-received',id:transfer.id}));}catch(error){console.warn('File received but delivery receipt could not be sent',error);}
+          notice(`${file.name} received. Open File sharing to save it.`);return;
         }
         if(message.type==='file-received'){
-          const outgoing=peer.outgoingFiles.get(message.id);if(outgoing){clearTimeout(outgoing.ackTimer);peer.outgoingFiles.delete(message.id);$('#transferState').textContent='COMPLETE';$('#transferFooter').innerHTML='<strong>●</strong> Peer received and authenticated the file';transferProgress(100,`${formatBytes(outgoing.size)} delivered`,$('#speed').textContent);notice('File delivered and verified by the peer.');}return;
+          const outgoing=peer.outgoingFiles.get(message.id);if(outgoing){clearTimeout(outgoing.ackTimer);peer.outgoingFiles.delete(message.id);if(activeTransferPeerId===peerId){activeTransferPeerId=null;$('#transferState').textContent='COMPLETE';$('#transferFooter').innerHTML='<strong>●</strong> Peer received and authenticated the file';transferProgress(100,`${formatBytes(outgoing.size)} delivered`,$('#speed').textContent);}notice('File delivered and verified by the peer.');}return;
         }
         if(message.type==='file-rejected'){
-          const outgoing=peer.outgoingFiles.get(message.id);if(outgoing)clearTimeout(outgoing.ackTimer);peer.outgoingFiles.delete(message.id);$('#transferState').textContent='REJECTED';notice('Peer could not receive this file. Try a smaller file or reconnect.');return;
+          const outgoing=peer.outgoingFiles.get(message.id);if(outgoing){clearTimeout(outgoing.ackTimer);peer.outgoingFiles.delete(message.id);if(activeTransferPeerId===peerId){activeTransferPeerId=null;$('#transferState').textContent='REJECTED';transferProgress(0,'Peer could not receive the file','—');}notice('Peer could not receive this file. Try a smaller file or reconnect.');}return;
+        }
+        if(message.type==='file-cancel'){
+          const transfer=peer.incomingFile;if(transfer&&transfer.id===message.id){peer.incomingFile=null;if(activeTransferPeerId===peerId){activeTransferPeerId=null;$('#transferState').textContent='CANCELLED';transferProgress(0,'Sender stopped the transfer','—');$('#transferFooter').textContent='The sender stopped this transfer before delivery.';}}return;
         }
         return;
       }
       const transfer=peer.incomingFile;if(!transfer)return;
-      const frame=new Uint8Array(data);if(frame.byteLength<20)return;
+      const frame=new Uint8Array(data);if(frame.byteLength<20)throw new Error('File chunk is too short.');
       const index=new DataView(frame.buffer,frame.byteOffset,4).getUint32(0,false);
       if(index!==transfer.nextIndex||index>=transfer.total)throw new Error('Unexpected file chunk order.');
       const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:chunkIv(transfer.prefix,index),additionalData:encoder.encode(transfer.id)},transfer.key,frame.subarray(4));
@@ -354,32 +588,36 @@
       transfer.chunks[index]=plain;transfer.nextIndex++;transfer.received+=plain.byteLength;transfer.bytesSinceAck+=plain.byteLength;
       const percent=transfer.size?transfer.received/transfer.size*100:100;
       const now=performance.now();
-      if(now-transfer.lastUiUpdate>=100||transfer.nextIndex===transfer.total){
+      if(activeTransferPeerId===peerId&&(now-transfer.lastUiUpdate>=100||transfer.nextIndex===transfer.total)){
         transfer.lastUiUpdate=now;$('#transferState').textContent='RECEIVING';transferProgress(percent,`${formatBytes(transfer.received)} of ${formatBytes(transfer.size)} received`,'encrypted');
       }
       if(transfer.bytesSinceAck>=1024*1024||transfer.nextIndex===transfer.total){peer.channel.send(JSON.stringify({type:'file-progress',id:transfer.id,bytes:transfer.received}));transfer.bytesSinceAck=0;}
     }
     async function sendFile(file){
-      const peer=peerForSelection();if(!peer||peer.channel?.readyState!=='open'){notice('Connect to an online peer before choosing a file.');return;}
+      const transferPeerId=selectedPeerId(),peer=peerForSelection();if(!peer||peer.channel?.readyState!=='open'){notice('Connect to an online peer before choosing a file.');return;}
       if(peer.outgoingFiles.size){notice('Wait for the current file to finish before starting another.');return;}
       const channel=peer.channel;
       const max=peer.pc.sctp?.maxMessageSize;
-      const chunkSize=Math.max(16*1024,Math.min(CHUNK_TARGET,Number.isFinite(max)&&max>0?max-20:64*1024-20));
+      const maxChunkSize=(Number.isFinite(max)&&max>0?Math.floor(max):64*1024)-20;
+      if(!Number.isSafeInteger(file.size)||file.size>MAX_RECEIVE_BYTES){notice('This browser can receive files up to 2 GB. Choose a smaller file.');return;}
+      if(maxChunkSize<16*1024){notice('This browser connection negotiated a message size too small for file transfer.');return;}
+      const chunkSize=Math.min(CHUNK_TARGET,maxChunkSize);
       const totalChunks=Math.max(1,Math.ceil(file.size/chunkSize));
       const id=crypto.randomUUID(),rawKey=crypto.getRandomValues(new Uint8Array(32)),ivPrefix=crypto.getRandomValues(new Uint8Array(8));
-      const key=await crypto.subtle.importKey('raw',rawKey,{name:'AES-GCM'},false,['encrypt']);
       const outgoing={id,size:file.size,acked:0,started:performance.now(),lastUiUpdate:0,ackTimer:null};peer.outgoingFiles.set(id,outgoing);
+      activeTransferPeerId=transferPeerId;$('#transferPanel').open=true;
       $('#fileName').textContent=file.name;$('#fileMeta').textContent=`${formatBytes(file.size)} · AES-256-GCM`;
       $('#fileIcon').textContent=(file.name.split('.').pop()||'FILE').slice(0,4).toUpperCase();$('#transferState').textContent='SENDING';
       $('#transferFooter').textContent='Direct WebRTC channel · bounded memory queue';transferProgress(0,'Preparing encrypted chunks','—');
-      channel.send(JSON.stringify({type:'file-start',id,name:file.name,size:file.size,mimeType:file.type,totalChunks,chunkSize,key:base64(rawKey),ivPrefix:base64(ivPrefix)}));
-      const encryptChunk=async index=>{
-        const start=index*chunkSize;const plain=await file.slice(start,Math.min(file.size,start+chunkSize)).arrayBuffer();
-        const cipher=await crypto.subtle.encrypt({name:'AES-GCM',iv:chunkIv(ivPrefix,index),additionalData:encoder.encode(id)},key,plain);
-        const frame=new Uint8Array(4+cipher.byteLength);new DataView(frame.buffer).setUint32(0,index,false);frame.set(new Uint8Array(cipher),4);return frame;
-      };
-      const pipeline=new Map();for(let index=0;index<Math.min(totalChunks,ENCRYPTION_PIPELINE);index++)pipeline.set(index,encryptChunk(index));
       try{
+        const key=await crypto.subtle.importKey('raw',rawKey,{name:'AES-GCM'},false,['encrypt']);
+        channel.send(JSON.stringify({type:'file-start',id,name:file.name,size:file.size,mimeType:typeof file.type==='string'?file.type.slice(0,128):'',totalChunks,chunkSize,key:base64(rawKey),ivPrefix:base64(ivPrefix)}));
+        const encryptChunk=async index=>{
+          const start=index*chunkSize;const plain=await file.slice(start,Math.min(file.size,start+chunkSize)).arrayBuffer();
+          const cipher=await crypto.subtle.encrypt({name:'AES-GCM',iv:chunkIv(ivPrefix,index),additionalData:encoder.encode(id)},key,plain);
+          const frame=new Uint8Array(4+cipher.byteLength);new DataView(frame.buffer).setUint32(0,index,false);frame.set(new Uint8Array(cipher),4);return frame;
+        };
+        const pipeline=new Map();for(let index=0;index<Math.min(totalChunks,ENCRYPTION_PIPELINE);index++)pipeline.set(index,encryptChunk(index));
         for(let index=0;index<totalChunks;index++){
           if(!peer.outgoingFiles.has(id))return;
           const frame=await pipeline.get(index);pipeline.delete(index);await waitForCapacity(channel);
@@ -388,17 +626,29 @@
           const next=index+ENCRYPTION_PIPELINE;if(next<totalChunks)pipeline.set(next,encryptChunk(next));
           const queued=Math.min(file.size,(index+1)*chunkSize);const percent=file.size?queued/file.size*100:100;
           const now=performance.now();
-          if(now-outgoing.lastUiUpdate>=100||index+1===totalChunks){outgoing.lastUiUpdate=now;$('#transferState').textContent='SENDING';transferProgress(Math.min(99,percent),`${formatBytes(queued)} of ${formatBytes(file.size)} sent`,`queue ${channel.bufferedAmount<1024*1024?'clear':'busy'}`);}
+          if(activeTransferPeerId===transferPeerId&&(now-outgoing.lastUiUpdate>=100||index+1===totalChunks)){outgoing.lastUiUpdate=now;$('#transferState').textContent='SENDING';transferProgress(Math.min(99,percent),`${formatBytes(queued)} of ${formatBytes(file.size)} sent`,`queue ${channel.bufferedAmount<1024*1024?'clear':'busy'}`);}
         }
+        if(!peer.outgoingFiles.has(id))return;
         await waitForCapacity(channel);channel.send(JSON.stringify({type:'file-end',id}));
-        $('#transferState').textContent='VERIFYING';transferProgress(Math.min(99,file.size?outgoing.acked/file.size*100:99),'Waiting for peer verification',$('#speed').textContent);
-        armDeliveryTimeout(peer,id,outgoing);
-      }catch(error){clearTimeout(outgoing.ackTimer);peer.outgoingFiles.delete(id);$('#transferState').textContent='FAILED';notice('File transfer stopped because the peer connection closed.');console.error(error);}
+        if(activeTransferPeerId===transferPeerId){$('#transferState').textContent='VERIFYING';transferProgress(Math.min(99,file.size?outgoing.acked/file.size*100:99),'Waiting for peer verification',$('#speed').textContent);}
+        armDeliveryTimeout(transferPeerId,peer,id,outgoing);
+      }catch(error){clearTimeout(outgoing.ackTimer);peer.outgoingFiles.delete(id);if(channel.readyState==='open'){try{channel.send(JSON.stringify({type:'file-cancel',id}));}catch{}}
+        if(activeTransferPeerId===transferPeerId){activeTransferPeerId=null;$('#transferState').textContent='FAILED';transferProgress(0,'File transfer failed','—');$('#transferFooter').textContent='Reconnect to this peer and send the file again.';}notice('File transfer stopped before delivery. Reconnect and retry.');console.error(error);}
     }
 
     const modal=$('#connectModal'),closeModal=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');$('#keyError').textContent=''};
     const openConnectModal=()=>{modal.classList.add('open');modal.setAttribute('aria-hidden','false');$('#peerName').focus()};
     $('#openConnect').addEventListener('click',openConnectModal);
+    $('#loginForm').addEventListener('submit',event=>{
+      event.preventDefault();const name=$('#loginName').value.trim();if(!name){$('#loginName').focus();return;}
+      localStorage.setItem('cipherMeshDisplayName',name);$('#displayName').textContent=name;
+      $('#loginScreen').hidden=true;$('.shell').hidden=false;
+      if(inviteModalPending){inviteModalPending=false;openConnectModal();}
+    });
+    $('#changeProfile').addEventListener('click',()=>{
+      $('#loginName').value=localStorage.getItem('cipherMeshDisplayName')||'';
+      $('.shell').hidden=true;$('#loginScreen').hidden=false;$('#loginName').focus();
+    });
     const inviteUrl=()=>{const url=new URL(location.href);url.hash=`connect=${myPeerKey}`;return url.href;};
     async function shareInvite(){
       const url=inviteUrl(),shareData={title:'Cipher Mesh X invite',text:'Chat with me on Cipher Mesh X. Open this link while I am online:',url};
@@ -426,11 +676,15 @@
       peer.channel.send(JSON.stringify({type:'chat',text,at:Date.now()}));appendMessage(text,'out',Date.now(),selectedPeerId());input.value='';
     });
     $('#chooseFile').addEventListener('click',()=>$('#fileInput').click());
+    $('#attachFile').addEventListener('click',()=>$('#fileInput').click());
+    $('#emptyStartChat').addEventListener('click',openConnectModal);
+    $('#backToChats').addEventListener('click',()=>document.querySelector('.shell').classList.remove('chat-open'));
+    $('#contactSearch').addEventListener('input',event=>{const query=event.target.value.trim().toLowerCase();for(const row of $('#contactList').children){const item=row.querySelector('.contact');if(item)row.hidden=!item.innerText.toLowerCase().includes(query);}});
     $('#fileInput').addEventListener('change',event=>{const file=event.target.files?.[0];event.target.value='';if(file)sendFile(file);});
     for(const contact of savedContacts())if(contact?.name&&KEY_PATTERN.test(contact.peerId)&&contact.peerId!==myPeerKey)addContact(contact.name,contact.peerId,false);
     loadLocalHistory();
     const invitePeer=new URLSearchParams(location.hash.slice(1)).get('connect')?.toLowerCase();
-    if(invitePeer&&KEY_PATTERN.test(invitePeer)&&invitePeer!==myPeerKey){$('#peerKey').value=invitePeer;$('#peerName').value='Friend';history.replaceState(null,'',location.pathname+location.search);openConnectModal();}
+    if(invitePeer&&KEY_PATTERN.test(invitePeer)&&invitePeer!==myPeerKey){$('#peerKey').value=invitePeer;$('#peerName').value='Friend';history.replaceState(null,'',location.pathname+location.search);inviteModalPending=true;}
     if(window.isSecureContext&&crypto.subtle&&window.RTCPeerConnection&&window.WebSocket){connectSignaling();}
     else{$('#networkText').textContent='HTTPS REQUIRED';$('#openConnect').disabled=true;$('#shareInvite').disabled=true;notice('Open Cipher Mesh over HTTPS to use encrypted chat and file transfer.');}
   </script>
