@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: cipher-mesh-x
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
